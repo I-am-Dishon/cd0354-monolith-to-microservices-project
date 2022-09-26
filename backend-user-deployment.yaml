@@ -26,7 +26,7 @@ spec:
       containers:
         - env:
             - name: AWS_BUCKET
-              value: arn:aws:s3:::images-bucket-1234567
+              value: " "
             - name: AWS_PROFILE
               value: default
             - name: AWS_REGION
@@ -36,14 +36,14 @@ spec:
             - name: POSTGRES_DB
               value: postgres
             - name: POSTGRES_HOST
-              value: database-1.cjbjorxeimrf.us-east-1.rds.amazonaws.com
+              value: ""
             - name: POSTGRES_PASSWORD
-              value: '*C1tRTc2oxYJ'
+              value: ''
             - name: POSTGRES_USERNAME
-              value: goro
+              value: ""
             - name: URL
               value: http://localhost:8100
-          image: gorodishon/udagram-api-user:v1
+          image: gorodishon/udagram-api-user:v2
           name: backend-user
           ports:
             - containerPort: 8080

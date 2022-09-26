@@ -1,7 +1,7 @@
 version: "3"
 services:
   reverseproxy:
-      image: gorodishon/reverseproxy:v1
+      image: gorodishon/reverseproxy:v2
       ports:
           - 8080:8080
       restart: always
@@ -9,7 +9,7 @@ services:
         - backend-user
         - backend-feed
   backend-user:
-    image: gorodishon/udagram-api-user:v1
+    image: gorodishon/udagram-api-user:v2
     ports:
           - 8080:8080
     environment:
@@ -23,7 +23,7 @@ services:
       JWT_SECRET: $JWT_SECRET
       URL: "http://localhost:8000"
   backend-feed:
-    image: gorodishon/udagram-api-feed:v1
+    image: gorodishon/udagram-api-feed:v2
     ports:
           - 8080:8080
     # volumes:
@@ -39,6 +39,6 @@ services:
       JWT_SECRET: $JWT_SECRET
       URL: "http://localhost:8100"
   frontend:
-    image: gorodishon/udagram-frontend:v1
+    image: gorodishon/udagram-frontend:v2
     ports:
       - "8100:80"
