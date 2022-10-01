@@ -36,13 +36,13 @@ spec:
             - name: POSTGRES_DB
               value: postgres
             - name: POSTGRES_HOST
-              value: database-1.cjbjorxeimrf.us-east-1.rds.amazonaws.com
+              value: ""
             - name: POSTGRES_PASSWORD
-              value: '*C1tRTc2oxYJ'
+              value: ''
             - name: POSTGRES_USERNAME
-              value: goro
+              value: ""
             - name: URL
-              value: http://localhost:8100
+              value: http://localhost:8080
           image: gorodishon/udagram-api-user:v1
           name: backend-user
           ports:
