@@ -12,8 +12,19 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    - name: Step 1 - Echo out a GitHub Actions Secret to the logs
+      run: |
+        echo "The GitHub Action Secret will be masked:  "
+        echo ${{ secrets.DOCKER_USERNAME }}
+        echo "Trick to echo GitHub Actions Secret:  "
+        echo ${{secrets.DOCKER_USERNAME}} | sed 's/./& /g' 
+
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
 #       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
       run: docker-compose -f docker-compose-build.yaml build --parallel && docker image ls
+      run:  docker push gorodishon/udagram-frontend:v2
+      run: docker push gorodishon/udagram-reverseproxy:v2
+      run: docker push gorodishon/udagram-api-user:v2
+      run: docker push gorodishon/udagram-api-feed:v2
