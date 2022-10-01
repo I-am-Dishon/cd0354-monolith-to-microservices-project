@@ -6,25 +6,38 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: docker.io
+  
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
-    - name: Step 1 - Echo out a GitHub Actions Secret to the logs
-      run: |
-        echo "The GitHub Action Secret will be masked:  "
-        echo ${{ secrets.DOCKER_USERNAME }}
-        echo "Trick to echo GitHub Actions Secret:  "
-        echo ${{secrets.DOCKER_USERNAME}} | sed 's/./& /g' 
+    # Login against a Docker registry except on PR
+    # https://github.com/docker/login-action
+    - name: Log into registry ${{ env.REGISTRY }}
+      if: github.event_name != 'pull_request'
+      uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
         
     - uses: actions/checkout@v3
     - name: Build the Docker image
 #       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-      run: docker-compose -f docker-compose-build.yaml build --parallel && docker image ls
-      run:  docker push gorodishon/udagram-frontend:v2
-      run: docker push gorodishon/udagram-reverseproxy:v2
-      run: docker push gorodishon/udagram-api-user:v2
-      run: docker push gorodishon/udagram-api-feed:v2
+      run: |
+        docker-compose -f docker-compose-build.yaml build --parallel && docker image ls
+        docker push gorodishon/udagram-frontend:v2
+        docker push gorodishon/udagram-reverseproxy:v2
+        docker push gorodishon/udagram-api-user:v2
+        docker push gorodishon/udagram-api-feed:v2
+
+    
