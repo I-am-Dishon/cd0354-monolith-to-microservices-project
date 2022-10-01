@@ -35,10 +35,6 @@ jobs:
 #       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
       run: |
         docker-compose -f docker-compose-build.yaml build --parallel
-        docker image ls | grep -i udagram
-        docker push gorodishon/udagram-frontend:v2
-        docker push gorodishon/udagram-reverseproxy:v2
-        docker push gorodishon/udagram-api-user:v2
-        docker push gorodishon/udagram-api-feed:v2
+        docker-compose -f docker-compose-build.yaml push --parallel
 
     
