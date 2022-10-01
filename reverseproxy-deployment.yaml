@@ -24,7 +24,7 @@ spec:
         io.kompose.service: reverseproxy
     spec:
       containers:
-        - image: gorodishon/reverseproxy:v1
+        - image: gorodishon/reverseproxy:v2
           name: reverseproxy
           ports:
             - containerPort: 8080
